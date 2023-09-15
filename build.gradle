@@ -29,7 +29,7 @@ ext {
     locatorVersion = '0.30'
     lombokMapstructBindingVersion = '0.2.0'
     commonModelVersion = '1.0.6-SNAPSHOT'
-    hibernateValidatorVersion = '8.0.8.Final'
+    hibernateValidatorVersion = '8.0.1.Final'
     springDocVersion = '2.0.4'
     boot = '2.0.2'
 }
