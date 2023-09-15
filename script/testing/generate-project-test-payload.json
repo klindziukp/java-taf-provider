@@ -1,0 +1,83 @@
+{
+  "projectPlatform": "JAVA",
+  "projectConfigurations": {
+    "projectName": "my-test-project",
+    "projectDescription": "my-test-project-description",
+    "groupId": "com.klindziuk",
+    "artifactId": "test.taf",
+    "javaVersion": "11",
+    "buildTool": "MAVEN",
+    "testEngine": "TESTNG"
+  },
+  "tafModuleGroups": [
+    {
+      "id": "taf-api-id",
+      "name": "taf-api",
+      "description": "Module group related to 'API' testing",
+      "tafModules": []
+    },
+    {
+      "id": "taf-engine-id",
+      "name": "taf-engine",
+      "description": "Module group related to 'TEST ENGINE'",
+      "tafModules": [
+        {
+          "id": "3",
+          "displayName": "TESTNG"
+        },
+        {
+          "id": "4",
+          "displayName": "JUNIT"
+        }
+      ]
+    },
+    {
+      "id": "taf-ui-id",
+      "name": "taf-ui",
+      "description": "Module group related to 'UI' testing",
+      "tafModules": [
+        {
+          "id": "1",
+          "displayName": "SERENITY"
+        },
+        {
+          "id": "2",
+          "displayName": "SELENIDE"
+        }
+      ]
+    },
+    {
+      "id": "taf-mobile-id",
+      "name": "taf-mobile",
+      "description": "Module group related to 'MOBILE' testing",
+      "tafModules": []
+    },
+    {
+      "id": "taf-messaging-id",
+      "name": "taf-messaging",
+      "description": "Module group related to 'MESSAGING' testing",
+      "tafModules": []
+    },
+    {
+      "id": "taf-performance-id",
+      "name": "taf-performance",
+      "description": "Module group related to 'PERFORMANCE' testing",
+      "tafModules": []
+    },
+    {
+      "id": "taf-reporting-id",
+      "name": "taf-reporting",
+      "description": "Module group related to 'REPORTING'",
+      "tafModules": [
+        {
+          "id": "5",
+          "displayName": "REPORT_PORTAL"
+        },
+        {
+          "id": "6",
+          "displayName": "ALLURE"
+        }
+      ]
+    }
+  ]
+}

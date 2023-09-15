@@ -1,0 +1,1 @@
+com.klindziuk.taf.test.property=testValue

@@ -1,0 +1,19 @@
+version: "3.2"
+services:
+  postgres:
+    container_name: postgress
+    image: postgres:10.5
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=modules
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./script/sql/0001-schema.sql:/docker-entrypoint-initdb.d/0001-schema.sql
+      - ./script/sql/0002-data.sql:/docker-entrypoint-initdb.d/0002-data.sql

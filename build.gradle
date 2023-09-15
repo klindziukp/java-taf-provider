@@ -1,0 +1,97 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.3'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.flywaydb.flyway' version '8.2.3'
+    id 'com.diffplug.spotless' version '6.18.0'
+}
+
+group = 'com.klindziuk.java.taf.provider'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '20'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    commonsIoVersion = '2.11.0'
+    commonsLang3Version = '3.12.0'
+    commonsTextVersion = '1.10.0'
+    freemarkerVersion = '2.3.32'
+    mapstructVersion = '1.5.3.Final'
+    locatorVersion = '0.30'
+    lombokMapstructBindingVersion = '0.2.0'
+    commonModelVersion = '1.0.6-SNAPSHOT'
+    hibernateValidatorVersion = '8.0.8.Final'
+    springDocVersion = '2.0.4'
+    boot = '2.0.2'
+}
+
+dependencies {
+    compileOnly('org.projectlombok:lombok')
+    annotationProcessor(
+            'org.projectlombok:lombok',
+            "org.mapstruct:mapstruct-processor:${mapstructVersion}",
+            "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+    )
+    implementation(
+            'org.springframework.boot:spring-boot-starter-data-jpa',
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-thymeleaf',
+            'org.flywaydb:flyway-core',
+            "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}",
+            "org.hibernate:hibernate-validator:${hibernateValidatorVersion}",
+            "org.mapstruct:mapstruct:${mapstructVersion}",
+            "commons-io:commons-io:${commonsIoVersion}",
+            "org.apache.commons:commons-lang3:${commonsLang3Version}",
+            "org.apache.commons:commons-text:${commonsTextVersion}",
+            "org.freemarker:freemarker:${freemarkerVersion}"
+
+    )
+
+    runtimeOnly('com.h2database:h2', 'org.postgresql:postgresql')
+    compileOnly 'org.projectlombok:lombok'
+    testImplementation(
+            'org.springframework.boot:spring-boot-starter-test',
+            'com.h2database:h2'
+    )
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += "--enable-preview"
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += "--enable-preview"
+}
+
+bootBuildImage {
+    builder = 'paketobuildpacks/builder:tiny'
+    imageName = "${project.name}:${version}"
+    environment = ["BP_JVM_TYPE" : "JRE", "BP_JVM_VERSION" : "20.0.2"]
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+spotless {
+    format 'misc', {
+        target '*.gradle', '*.md', '.gitignore'
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    java {
+        googleJavaFormat('1.16.0').reflowLongStrings()
+        formatAnnotations()
+        removeUnusedImports()
+        licenseHeader '/*\n * Copyright (c) Dandelion development.\n */\n\n'
+    }
+}

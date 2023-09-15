@@ -1,0 +1,39 @@
+version: "3.2"
+services:
+  postgres:
+    container_name: postgress
+    image: postgres:10.5
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=modules
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./script/sql/0001-schema.sql:/docker-entrypoint-initdb.d/0001-schema.sql
+      - ./script/sql/0002-data.sql:/docker-entrypoint-initdb.d/0002-data.sql
+
+  java-taf-provider:
+    container_name: java-taf-provider
+    image:  klindziuk/java-taf-provider:1.0.0
+    environment:
+      server.port: 8081
+      spring.datasource.url: jdbc:postgresql://postgres:5432/modules
+      spring.datasource.schema: schema
+      spring.datasource.username: postgres
+      spring.datasource.password: postgres
+      spring.jpa.show-sql: "true"
+      spring.jpa.properties.hibernate.ddl-auto: update
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - 8081:8081
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - postgres
+    restart: on-failure

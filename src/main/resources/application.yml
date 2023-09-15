@@ -1,0 +1,38 @@
+server:
+  port: 8081
+spring:
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+  datasource:
+    url: jdbc:postgresql://localhost:5432/modules
+    schema: modules
+    username: postgres
+    password: postgres
+  flyway:
+    enabled: false
+  servlet:
+    multipart:
+      max-file-size: 500KB
+      max-request-size: 500KB
+com:
+  klindziuk:
+    taf:
+      provider:
+        thread-mode: virtual
+        maven:
+          aspectj-version: 1.9.9
+          compiler-version: 3.10.1
+          surefire-version: 3.0.0-M6
+        gradle:
+          wrapper-version: tba
+        project:
+          directory: projects
+          cleanup: false
