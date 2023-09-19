@@ -17,11 +17,11 @@ docker-compose -f docker-compose-infra.yml up
 ```
 
 ## Open API documentation
-- Open 'http://{server}:{port}/api-docs' to view documentation in JSON format for TDM service
+- Open `http://{server}:{port}/api-docs` to view documentation in JSON format for TDM service
 ```bash
 http://localhost:8081/v3/api-docs
 ```
-- Open 'http://{server}:{port}/swagger-ui.html' to view api endpoints for TDM service
+- Open `http://{server}:{port}/swagger-ui.html` to view api endpoints for TDM service
 ```bash
 http://localhost:8081/swagger-ui/index.html
 ```
