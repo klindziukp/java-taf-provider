@@ -1,4 +1,4 @@
-FROM amazoncorretto:20-alpine-jdk
+FROM amazoncorretto:21-alpine-jdk
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 
@@ -8,4 +8,4 @@ COPY template template
 COPY template/tool/maven/.mvn/wrapper template/tool/maven/.mvn/wrapper
 
 EXPOSE 8081
-ENTRYPOINT ["sh", "-c", "java --enable-preview -jar java-taf-provider.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar java-taf-provider.jar"]
