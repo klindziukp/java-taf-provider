@@ -13,11 +13,13 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.file.Path;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /** 'Freemarker' service */
 @Service
+@Slf4j
 public class FreemarkerService {
 
   @Autowired private final FreemarkerConfig freemarkerConfig;
@@ -27,10 +29,24 @@ public class FreemarkerService {
     this.freemarkerConfig = freemarkerConfig;
   }
 
+  /**
+   * Creates template
+   *
+   * @param ftlFilePath ftl file path
+   * @return Template
+   */
   public Template createTemplate(String ftlFilePath) {
     return freemarkerConfig.getTemplate(ftlFilePath);
   }
 
+  /**
+   * Creates ftl file
+   *
+   * @param template freemarker template
+   * @param path path to result file
+   * @param fileName name of the file
+   * @param params ftl file parameters
+   */
   public void createFile(
       Template template, Path path, String fileName, Map<String, Object> params) {
     try {
@@ -46,6 +62,7 @@ public class FreemarkerService {
       out.close();
 
     } catch (Exception ex) {
+      log.error("Unable to create '{}' file", fileName, ex);
       throw new TafProviderException(ex);
     }
   }

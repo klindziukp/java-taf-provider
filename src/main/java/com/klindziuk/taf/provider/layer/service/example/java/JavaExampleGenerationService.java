@@ -178,7 +178,7 @@ public class JavaExampleGenerationService implements ExampleGenerationService {
               .filter(pathFilter(generationData.getModuleDisplayNames()))
               .flatMap(this::getFileStream)
               .filter(ftlFilter())
-              .map(p2 -> StringUtils.substringBeforeLast(p2.toString(), File.separator))
+              .map(path -> StringUtils.substringBeforeLast(path.toString(), File.separator))
               .collect(
                   Collectors.toMap(
                       pathFrom -> pathFrom,
@@ -189,18 +189,11 @@ public class JavaExampleGenerationService implements ExampleGenerationService {
   }
 
   private void generateSrcResourcesFolder(GenerationData generationData) {
-    final Path srcMainResourcesPath =
-        WizardFileUtil.createDirectories(
-            NewProjectPathUtil.getSrcMainResourcesPath(generationData));
-
-    createCommonPropertiesFile(srcMainResourcesPath);
+    WizardFileUtil.createDirectories(NewProjectPathUtil.getSrcMainResourcesPath(generationData));
   }
 
   private void generateTestResourcesTestFolder(GenerationData generationData) {
-    final Path srcMainTestResourcesPath =
-        WizardFileUtil.createDirectories(
-            NewProjectPathUtil.getSrcTestResourcesPath(generationData));
-    createCommonPropertiesFile(srcMainTestResourcesPath);
+    WizardFileUtil.createDirectories(NewProjectPathUtil.getSrcTestResourcesPath(generationData));
   }
 
   private Stream<Path> getFileStream(Path path) {
@@ -244,11 +237,5 @@ public class JavaExampleGenerationService implements ExampleGenerationService {
 
   private Predicate<Path> ftlFilter() {
     return path -> path.toString().endsWith(FreemarkerConstant.FTL_EXTENSION);
-  }
-
-  private void createCommonPropertiesFile(Path path) {
-    final Map<String, Object> params = new HashMap<>();
-    final Template template = freemarkerService.createTemplate("/property/common.ftl");
-    freemarkerService.createFile(template, path, FreemarkerConstant.COMMON_PROPERTIES, params);
   }
 }
