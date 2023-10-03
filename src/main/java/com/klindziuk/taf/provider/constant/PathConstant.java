@@ -29,15 +29,12 @@ public final class PathConstant {
       Paths.get("template/freemarker/example");
   // Doc
   public static final String WIZARD_DOC_PATH = "template/file/doc/";
-  public static final String API_MD = "/API.md";
-  public static final String MOBILE_MD = "/MOBILE.md";
-  public static final String WEB_MD = "/WEB.md";
-  public static final Path WIZARD_DOC_API_PATH = Paths.get(WIZARD_DOC_PATH + API_MD);
-  public static final Path WIZARD_DOC_MOBILE_PATH = Paths.get(WIZARD_DOC_PATH + MOBILE_MD);
-  public static final Path WIZARD_DOC_WEB_PATH = Paths.get(WIZARD_DOC_PATH + WEB_MD);
+  public static final String NEW_PROJECT_DOC_PATH = "/doc";
   // Git
   public static final String GIT_IGNORE = "/.gitignore";
   public static final Path WIZARD_GIT_IGNORE_PATH = Paths.get("template/file/git/.gitignore");
+  // Property
+  public static final String WIZARD_PROPERTY_PATH = "template/file/property/";
   // Build tool
   public static final String WIZARD_BUILD_TOOL_MAVEN_PATH = "template/tool/maven";
   public static final String WIZARD_BUILD_TOOL_GRADLE_PATH = "template/tool/gradle";

@@ -70,8 +70,9 @@ public class GenerationServiceImpl implements GenerationService {
 
     exampleGenerationService.generateExamples(generationData);
 
-    docsGenerationService.generateDocsFolder(generationData);
     docsGenerationService.generateGitItems(generationData);
+    docsGenerationService.generateDocItems(generationData);
+    docsGenerationService.generatePropertyItems(generationData);
 
     final BuildToolServiceFactory buildToolServiceFactory =
         buildToolGenerationServiceFactory.buildToolServiceFactory(ProjectLanguage.JAVA);
