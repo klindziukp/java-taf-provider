@@ -25,6 +25,7 @@ public class GenerationData {
   private GenerationConfig generationConfig;
   private Path randomDirectoryPath;
   private Path projectPath;
+  private ModuleItem testEngine;
   private Set<String> moduleDisplayNames;
   private Set<ModuleItem> moduleItems;
 }

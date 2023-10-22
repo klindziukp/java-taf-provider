@@ -21,16 +21,13 @@
   </properties>
 
   <repositories>
-    <repository>
-      <id>klindziuk-central</id>
-      <name>artifactory.klindziuk.com-releases</name>
-      <url>https://artifactory.klindziuk.com/artifactory/KLINDZIUK-MAVEN</url>
-    </repository>
-    <repository>
-      <id>klindziuk-snapshots</id>
-      <name>artifactory.klindziuk.com-snapshots</name>
-      <url>https://artifactory.klindziuk.com/artifactory/KLINDZIUK-MAVEN</url>
-    </repository>
+   <repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/staf-org/staf-java</url>
+    <snapshots>
+     <enabled>true</enabled>
+    </snapshots>
+   </repository>
   </repositories>
 
   <dependencies>
@@ -69,6 +66,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${maven.surefire.aspectj.version}</version>
           </dependency>
+          <dependency>
+           <groupId>org.apache.maven.surefire</groupId>
+           <artifactId>${maven.surefire.provider}</artifactId>
+           <version>${maven.surefire.plugin.version}</version>
+           </dependency>
         </dependencies>
       </plugin>
     </plugins>
