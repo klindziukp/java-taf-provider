@@ -7,6 +7,7 @@ package com.klindziuk.taf.provider.layer.service;
 import com.klindziuk.taf.provider.config.generation.GenerationConfig;
 import com.klindziuk.taf.provider.constant.ConfigurationProperty;
 import com.klindziuk.taf.provider.constant.ModuleGroupInfo;
+import com.klindziuk.taf.provider.constant.SurefireProvider;
 import com.klindziuk.taf.provider.exception.TafProviderSingleModuleException;
 import com.klindziuk.taf.provider.layer.repository.ModuleRepository;
 import com.klindziuk.taf.provider.layer.service.buildtool.BuildToolGenerationService;
@@ -168,6 +169,15 @@ public class GenerationServiceImpl implements GenerationService {
         generationData.getModuleDisplayNames().add(moduleItem.getDisplayName());
         generationData.getModuleItems().add(moduleItem);
       }
+      addTestEngine(generationData, moduleItem);
+    }
+  }
+
+  private void addTestEngine(GenerationData generationData, ModuleItem moduleItem) {
+    final String displayName = moduleItem.getDisplayName();
+    if (SurefireProvider.SUREFIRE_TEST_NG.getTestEngine().equalsIgnoreCase(displayName)
+        || SurefireProvider.SUREFIRE_JUNIT.getTestEngine().equalsIgnoreCase(displayName)) {
+      generationData.setTestEngine(moduleItem);
     }
   }
 }

@@ -6,6 +6,7 @@ package com.klindziuk.taf.provider.layer.service.buildtool.java;
 
 import com.klindziuk.taf.provider.constant.FreemarkerConstant;
 import com.klindziuk.taf.provider.constant.PathConstant;
+import com.klindziuk.taf.provider.constant.SurefireProvider;
 import com.klindziuk.taf.provider.constant.TafProviderKey;
 import com.klindziuk.taf.provider.layer.service.FreemarkerService;
 import com.klindziuk.taf.provider.layer.service.buildtool.BuildToolGenerationService;
@@ -39,8 +40,20 @@ public class MavenGenerationService implements BuildToolGenerationService {
   public void createProjectFile(GenerationData generationData) {
     final Map<String, Object> params = new HashMap<>();
     params.put(TafProviderKey.GENERATION_DATA, generationData);
+    params.put(TafProviderKey.SUREFIRE_PROVIDER, surefireProvider(generationData));
     final Template template = freemarkerService.createTemplate("/maven/pom.ftl");
     freemarkerService.createFile(
         template, generationData.getProjectPath(), FreemarkerConstant.POM_XML, params);
+  }
+
+  private String surefireProvider(GenerationData generationData) {
+    final String testEngineName = generationData.getTestEngine().getDisplayName();
+    if (SurefireProvider.SUREFIRE_TEST_NG.getTestEngine().equalsIgnoreCase(testEngineName)) {
+      return SurefireProvider.SUREFIRE_TEST_NG.getSurefireProvider();
+    }
+    if (SurefireProvider.SUREFIRE_JUNIT.getTestEngine().equalsIgnoreCase(testEngineName)) {
+      return SurefireProvider.SUREFIRE_JUNIT.getSurefireProvider();
+    }
+    throw new RuntimeException("Unsupported Test Engine: " + testEngineName);
   }
 }
